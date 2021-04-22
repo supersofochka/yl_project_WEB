@@ -1,6 +1,6 @@
 from flask import Flask, url_for, request, render_template, redirect
 from data import db_session
-from forms.user import RegisterForm
+from forms.user import RegisterForm, EnterForm
 from data.users import User
 
 app = Flask(__name__)
@@ -12,9 +12,22 @@ def main_page():
     return render_template('main_page.html', title='Домашняя страница')
 
 
-@app.route('/enter')
+@app.route('/enter', methods=['GET', 'POST'])
 def enter():
-    return render_template('enter.html', title='Страница входа')
+    form = EnterForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        if not user:
+            return render_template('enter.html', title='Регистрация',
+                                   form=form,
+                                   message="Нет такого пользователя")
+        if not user.check_password(form.password.data):
+            return render_template('enter.html', title='Регистрация',
+                                   form=form,
+                                   message="Неверный пароль")
+        return redirect('/products')
+    return render_template('enter.html', title='Вход', form=form)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -39,6 +52,11 @@ def registration():
         db_sess.commit()
         return redirect('/enter')
     return render_template('registration.html', title='Регистрация', form=form)
+
+
+@app.route('/products')
+def products():
+    return 'Продукты'
 
 
 if __name__ == '__main__':
