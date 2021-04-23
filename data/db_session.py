@@ -8,7 +8,7 @@ SqlAlchemyBase = dec.declarative_base()
 __factory = None
 
 
-def global_init(db_file):
+def global_init(db_file, flag=False):
     global __factory
 
     if __factory:
@@ -23,7 +23,10 @@ def global_init(db_file):
     engine = sa.create_engine(conn_str, echo=False)
     __factory = orm.sessionmaker(bind=engine)
 
-    from . import __all_models
+    if not flag:
+        from . import __all_models
+    else:
+        from . import products
 
     SqlAlchemyBase.metadata.create_all(engine)
 
