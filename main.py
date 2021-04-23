@@ -61,7 +61,12 @@ def products():
 
 @app.route('/basket')
 def basket():
-    return 'Корзина'
+    return render_template('basket.html', title='Корзина')
+
+
+@app.route('/order')
+def order():
+    return 'Заказ'
 
 
 if __name__ == '__main__':
