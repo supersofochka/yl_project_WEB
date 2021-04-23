@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, render_template, redirect
+from flask import Flask, render_template, redirect
 from data import db_session
 from forms.user import RegisterForm, EnterForm
 from data.users import User
@@ -56,7 +56,12 @@ def registration():
 
 @app.route('/products')
 def products():
-    return 'Продукты'
+    return render_template('products.html', title='Каталог')
+
+
+@app.route('/basket')
+def basket():
+    return 'Корзина'
 
 
 if __name__ == '__main__':
