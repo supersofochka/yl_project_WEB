@@ -1,10 +1,12 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from data import db_session
 from forms.user import RegisterForm, EnterForm
 from data.users import User
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+
+result = 0
 
 
 @app.route('/')
@@ -59,9 +61,27 @@ def products():
     return render_template('products.html', title='Каталог')
 
 
-@app.route('/basket')
+@app.route('/basket', methods=['POST', 'GET'])
 def basket():
-    return render_template('basket.html', title='Корзина')
+    global result
+
+    if request.method == 'GET':
+        return render_template('basket.html', title='Корзина')
+    elif request.method == 'POST':
+        print(request.form['jeans'], request.form['shirt'], request.form['shoes'], request.form['skirt'])
+        if request.form['jeans']:
+            if int(request.form['jeans']) > 0:
+                result += int(request.form['jeans']) * 3000
+        if request.form['shirt']:
+            if int(request.form['shirt']) > 0:
+                result += int(request.form['shirt']) * 1500
+        if request.form['shoes']:
+            if int(request.form['shoes']) > 0:
+                result += int(request.form['shoes']) * 4000
+        if request.form['skirt']:
+            if int(request.form['skirt']) > 0:
+                result += int(request.form['skirt']) * 2000
+        return redirect('/order')
 
 
 @app.route('/order')
