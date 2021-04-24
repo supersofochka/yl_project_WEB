@@ -91,13 +91,13 @@ def basket():
 @app.route('/order', methods=['POST', 'GET'])
 def order():
     if request.method == 'GET':
-        return render_template('order.html', title='Заказ')
+        return render_template('order.html', title='Заказ', sum=result)
     elif request.method == 'POST':
         return redirect('/result')
 
 
 @app.route('/result')
-def result():
+def result_order():
     return render_template('result_order.html', title='Готово!')
 
 
