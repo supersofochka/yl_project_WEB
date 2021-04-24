@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+    crossorigin="anonymous">
+    <title>{{  title  }}</title>
+</head>
+<body>
+    <h1>Оформление заказа</h1>
+    <div>
+        <form class="login_form" method="post">
+            <input type="text" class="form-control" id="name" placeholder="Введите фамилию" name="name">
+            <input type="text" class="form-control" id="surname" placeholder="Введите имя" name="surname">
+            <input type="tel" class="form-control" id="tel" placeholder="Введите номер телефона" name="tel">
+            <input type="date" class="form-control" id="date" placeholder="Введите дату рождения" name="date">
+             <div class="form-group">
+                 <label for="address">Напишите свой адресс проживания</label>
+                 <textarea class="form-control" id="address" rows="1" name="address"></textarea>
+             </div>
+            <p> </p>
+            <button type="submit" class="btn btn-primary">Офрмить заказ</button>
+        </form>
+    </div>
+</body>
+</html>

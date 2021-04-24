@@ -67,26 +67,38 @@ def basket():
 
     if request.method == 'GET':
         return render_template('basket.html', title='Корзина')
+
     elif request.method == 'POST':
-        print(request.form['jeans'], request.form['shirt'], request.form['shoes'], request.form['skirt'])
         if request.form['jeans']:
             if int(request.form['jeans']) > 0:
                 result += int(request.form['jeans']) * 3000
+
         if request.form['shirt']:
             if int(request.form['shirt']) > 0:
                 result += int(request.form['shirt']) * 1500
+
         if request.form['shoes']:
             if int(request.form['shoes']) > 0:
                 result += int(request.form['shoes']) * 4000
+
         if request.form['skirt']:
             if int(request.form['skirt']) > 0:
                 result += int(request.form['skirt']) * 2000
+
         return redirect('/order')
 
 
-@app.route('/order')
+@app.route('/order', methods=['POST', 'GET'])
 def order():
-    return 'Заказ'
+    if request.method == 'GET':
+        return render_template('order.html', title='Заказ')
+    elif request.method == 'POST':
+        return redirect('/result')
+
+
+@app.route('/result')
+def result():
+    return render_template('result_order.html', title='Готово!')
 
 
 if __name__ == '__main__':
