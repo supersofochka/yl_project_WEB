@@ -2,3 +2,4 @@ flask
 wtforms
 sqlalchemy
 werkzeug
+flask-wtf
